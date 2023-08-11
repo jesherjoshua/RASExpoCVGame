@@ -17,6 +17,7 @@ mp_drawing = mp.solutions.drawing_utils
 
 # Initialize pose estimation model
 
+
 def detectPose(image, pose, blankImage=False):
     # Function to detect pose landmarks in an image/frame
 
@@ -101,9 +102,6 @@ def checkHandsJoined(img, results, draw=False):
     return output_img, hand_status
 
 
-
-
-
 def checkJumpCrouch(img, results, MID_Y=250, draw=False):
     # Function to check if the player is jumping, crouching, or standing
 
@@ -146,7 +144,9 @@ def checkJumpCrouch(img, results, MID_Y=250, draw=False):
 
     return output_image, posture
 
+
 # Function to draw text on the image with background
+
 
 def draw_text(
     img,
@@ -172,6 +172,7 @@ def draw_text(
         font_thickness,
     )
     return text_size
+
 
 if __name__ == "__main__":
 
@@ -241,19 +242,18 @@ if __name__ == "__main__":
                         )
                         MID_Y = abs(right_y + left_y) // 2
                         try:
+
                             win = gw.getWindowsWithTitle(
-                                'chrome://dino/ – Network error - Google Chrome (Incognito)'
+                                "chrome://dino/ – Network error - Google Chrome (Incognito)"
                             )[0]
                             win.activate()
                         except:
-                            win = gw2.getWindowsWithTitle(
-                                'chrome://dino/ – Network error - Google Chrome (Incognito)'
-                            )[0]
-                            win.activate()
-                        finally:
-                            print(
-                                "unable to switch window!!!!, CHANGE WINDOW MANUALLY"
-                            )
+                            for i in gw2.getAllTitles():
+                                if i.split(" ")[0] == "Google Chrome (Incognito)":
+                                    win = gw2.getWindowsWithTitle(i)[0]
+                                    win.activate()
+                                    print("Window Switch Successfull!!!")
+
                         time.sleep(3)
                         pyautogui.press("space")
                     else:
